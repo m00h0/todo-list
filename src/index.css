@@ -41,8 +41,20 @@ i {
 
 #container {
   background-color: #fff;
+  width: 60%;
   margin: 5em;
+  margin-left: 20%;
   box-shadow: 4px 2.5px 10px lightslategray;
+}
+
+input {
+  outline: none;
+  border: none;
+  width: 100%;
+}
+
+.checkboxtick {
+  width: 5%;
 }
 
 #input {
@@ -87,4 +99,9 @@ p {
 .completed {
   text-decoration: line-through;
   color: grey;
+}
+
+.edit-field {
+  font-size: 1.2rem;
+  color: rgb(99, 97, 97);
 }

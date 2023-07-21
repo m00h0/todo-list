@@ -1,41 +1,73 @@
 import './index.css';
-import addTask from './addtask.js';
-import { saveTasksToStorage, loadTasksFromStorage } from './localstorage.js';
+import {
+  addTaskToArray, highlightTask, loadTasksFromLS, modifyTask, removeTask, clearCompletedTasks,
+} from './modules/tasks.js';
+import updateTaskStatus from './modules/statusUpdates.js';
 
-let tasks = loadTasksFromStorage();
+const onPageLoad = () => {
+  loadTasksFromLS();
+};
+window.onload = onPageLoad();
 
-const taskList = document.getElementById('taskList');
-const taskInput = document.getElementById('input');
-
-function addTasks() {
-  taskList.innerHTML = '';
-  tasks.forEach((task) => {
-    addTask(task, taskList, tasks);
-  });
-}
-
-taskInput.addEventListener('keyup', (event) => {
+const addTaskInput = document.querySelector('.task-adder-input');
+const addTaskBtn = document.querySelector('.add-task-btn');
+const clearAllBtn = document.querySelector('.clear-all-btn');
+addTaskInput.addEventListener('keyup', (event) => {
   if (event.key === 'Enter') {
-    event.preventDefault();
-    const description = taskInput.value.trim();
-
-    if (description !== '') {
-      const newTask = {
-        description,
-        completed: false,
-        index: tasks.length + 1,
-      };
-
-      tasks.push(newTask);
-      taskInput.value = '';
-      addTask(newTask, taskList, tasks);
-
-      saveTasksToStorage(tasks);
+    const taskValue = addTaskInput.value.trim();
+    if (taskValue !== '') {
+      addTaskToArray(taskValue);
+      addTaskInput.value = '';
     }
   }
 });
-
-document.addEventListener('DOMContentLoaded', () => {
-  tasks = loadTasksFromStorage();
-  addTasks();
+addTaskBtn.addEventListener('click', () => {
+  const taskValue = addTaskInput.value.trim();
+  if (taskValue !== '') {
+    addTaskToArray(taskValue);
+    addTaskInput.value = '';
+  }
+});
+document.addEventListener('click', (e) => {
+  if (!(e.target.matches('.task-value') || e.target.matches('.trash-icon'))) {
+    return;
+  }
+  if (e.target.matches('.task-value')) {
+    const tasks = document.querySelectorAll('.task-value');
+    tasks.forEach((task, index) => {
+      if (e.target === task) {
+        highlightTask(index);
+      }
+    });
+  } else {
+    const deleteBtn = document.querySelectorAll('.trash-icon');
+    deleteBtn.forEach((btn, index) => {
+      if (e.target === btn) {
+        removeTask(index);
+      }
+    });
+  }
+});
+document.addEventListener('change', (e) => {
+  if (!(e.target.matches('.task-value') || e.target.matches('input[type=checkbox]'))) {
+    return;
+  }
+  if (e.target.matches('.task-value')) {
+    const tasks = document.querySelectorAll('.task-value');
+    tasks.forEach((task, index) => {
+      if (e.target === task) {
+        modifyTask(task.value, index);
+      }
+    });
+  } else {
+    const checkBoxes = document.querySelectorAll('input[type=checkbox]');
+    checkBoxes.forEach((checkBox, index) => {
+      if (e.target === checkBox) {
+        updateTaskStatus(index);
+      }
+    });
+  }
+});
+clearAllBtn.addEventListener('click', () => {
+  clearCompletedTasks();
 });

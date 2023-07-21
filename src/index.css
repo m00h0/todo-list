@@ -1,107 +1,170 @@
-body {
-  background: rgb(183, 183, 181);
-  background: linear-gradient(0deg, rgba(183, 183, 181, 1) 0%, rgba(255, 255, 255, 1) 100%);
-  font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
-  height: 100vh;
-}
-
-.todaysToDo {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: darkslategray;
-  border: 0.5px solid lightgray;
-}
-
-.inputAdd {
-  border: 0.5px solid lightgray;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-h1 {
-  font-weight: 400;
+* {
   margin: 0;
-  padding: 0.8rem;
-  font-size: 1.4rem;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-i {
-  padding-right: 1rem;
-  color: lightslategray;
+html {
+  font-size: calc(15px + 0.390625vw);
 }
 
-.material-symbols-outlined {
-  color: lightslategray;
-  padding-right: 1rem;
-  font-size: 1rem;
-}
-
-#container {
-  background-color: #fff;
-  width: 60%;
-  margin: 5em;
-  margin-left: 20%;
-  box-shadow: 4px 2.5px 10px lightslategray;
-}
-
-input {
-  outline: none;
-  border: none;
-  width: 100%;
-}
-
-.checkboxtick {
-  width: 5%;
-}
-
-#input {
-  width: 87%;
-  margin: 0;
-  padding: 0.8rem;
-  font-size: 1.2rem;
-  font-style: italic;
-  border: none;
-  outline: none;
-}
-
-.clearBtn {
-  width: 100%;
-  font-size: 1.2rem;
-  padding: 1rem;
-  color: lightslategray;
+a {
+  text-decoration: none;
 }
 
 ul {
-  margin: 0;
-  padding: 0;
+  list-style-type: none;
 }
 
-.list {
+input {
+  border: none;
+  outline: none;
+}
+
+main {
   display: flex;
-  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.container {
+  width: 90%;
+  box-shadow: rgba(0, 0, 0, 0.28) 0 3px 8px;
+}
+
+.container > .item {
+  border-bottom: 0.5px solid #d3d3d3;
+}
+
+.container .item:nth-child(1) {
+  padding: 10px 20px;
+  display: flex;
   justify-content: space-between;
-  list-style: none;
+  align-items: center;
+}
+
+.container .item:nth-child(2) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item .sync-btn {
+  font-size: 0.85rem;
+  color: #a1a1a1;
+  cursor: pointer;
+  transition: 0.2s ease-in;
+}
+
+.item .sync-btn:hover {
+  color: #595959;
+}
+
+.item .task-adder-input {
+  color: #404040;
+  padding: 8px 0 8px 20px;
+  font-size: 0.85rem;
+  width: 100%;
+  font-style: italic;
+}
+
+.task-content input {
   width: auto;
-  border: 0.5px solid lightgray;
-  padding: 0.8rem;
-  padding-right: 0;
+  margin-right: 10px;
 }
 
-p {
-  margin: 0;
-  padding-left: 0.8rem;
-  width: 85%;
+.item .task-adder-input::placeholder {
+  font-style: italic;
 }
 
-.completed {
+.add-task-btn {
+  font-size: 0.85rem;
+  margin-right: 20px;
+  color: #d3d3d3;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.add-task-btn:hover {
+  color: #595959;
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  align-items: center;
+  border-bottom: 0.5px solid #d3d3d3;
+}
+
+.task:last-child {
+  border-bottom: 0;
+}
+
+.task .dots-icon,
+.trash-icon {
+  color: #a1a1a1;
+  cursor: move;
+}
+
+.task .trash-icon {
+  display: none;
+}
+
+.dots-icon.active {
+  display: none;
+}
+
+.trash-icon.active {
+  display: block;
+  cursor: pointer;
+}
+
+.trash-icon.active:hover {
+  color: #595959;
+  transition-duration: 0.2s;
+}
+
+.tasks-container .task-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.task-content .task-value {
+  font-size: 0.85rem;
+  width: 100%;
+  padding: 10px 0;
+  outline: none;
+  cursor: text;
+  background-color: transparent;
+}
+
+input:checked ~ .task-value {
   text-decoration: line-through;
-  color: grey;
+  opacity: 0.4;
 }
 
-.edit-field {
-  font-size: 1.2rem;
-  color: rgb(99, 97, 97);
+.task.active {
+  background-color: #ffc;
+  transition: 0.2s ease-in;
+}
+
+.item .clear-all-btn {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  border-radius: 0;
+  border: none;
+  color: #595959;
+}
+
+@media only screen and (min-width: 768px) {
+  .container {
+    width: 60%;
+  }
 }

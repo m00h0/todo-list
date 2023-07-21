@@ -1,58 +1,113 @@
-let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+let tasksList = [];
 
-export function storeTasks() {
-  localStorage.setItem('tasks', JSON.stringify(tasks));
-}
+const getTasksList = () => tasksList;
+const addOnLocalStorage = (task) => {
+  tasksList = JSON.parse(localStorage.getItem('tasks: '));
+  if (tasksList == null) tasksList = [];
+  tasksList.push(task);
+  localStorage.setItem('tasks: ', JSON.stringify(tasksList));
+};
 
-export function addTask(description) {
-  const task = {
-    description,
-    completed: false,
-    index: tasks.length + 1,
-  };
-  tasks.push(task);
-  storeTasks();
-}
+const addTaskToPage = (taskToBeDone) => {
+  const tasksContainerElt = document.querySelector('.tasks-container');
+  const taskDiv = document.createElement('div');
+  const taskContentDiv = document.createElement('div');
+  const taskValue = document.createElement('input');
+  const checkboxElt = document.createElement('input');
+  const trashIcon = document.createElement('i');
+  const dotsIcon = document.createElement('i');
+  taskDiv.setAttribute('class', 'task');
+  taskContentDiv.setAttribute('class', 'task-content');
+  taskValue.setAttribute('class', 'task-value');
+  taskValue.setAttribute('type', 'text');
+  checkboxElt.setAttribute('type', 'checkbox');
+  trashIcon.setAttribute('class', 'fa fa-trash trash-icon');
+  dotsIcon.setAttribute('class', 'fa fa-ellipsis-v dots-icon');
+  checkboxElt.checked = taskToBeDone.completed;
+  taskValue.value = taskToBeDone.description;
+  taskContentDiv.appendChild(checkboxElt);
+  taskContentDiv.appendChild(taskValue);
+  taskDiv.appendChild(taskContentDiv);
+  taskDiv.appendChild(trashIcon);
+  taskDiv.appendChild(dotsIcon);
+  tasksContainerElt.appendChild(taskDiv);
+};
 
-export function checkTasks() {
-  const lists = document.querySelector('.lists');
-
-  tasks.forEach((task) => {
-    lists.insertAdjacentHTML(
-      'beforeend',
-      `<li class="task-item" contentEditable = "false"><input type="checkbox">${task.description}<i id="task-btn" class="fa-solid fa-ellipsis-vertical"></i></li>`,
-    );
-  });
-}
-
-export function removeTask(index) {
-  tasks.splice(index, 1);
-  for (let i = index; i < tasks.length; i += 1) {
-    tasks[i].index = i + 1;
+const loadTasksFromLS = () => {
+  tasksList = JSON.parse(localStorage.getItem('tasks: '));
+  if (tasksList !== null) {
+    tasksList.forEach((taskToBeDone) => {
+      addTaskToPage(taskToBeDone);
+    });
+  } else {
+    tasksList = [];
   }
-  storeTasks();
-}
+};
 
-export function editTask(index, description) {
-  tasks[index].description = description;
-  storeTasks();
-}
+const addTaskToArray = (taskToBeDone) => {
+  const task = {
+    description: String,
+    completed: false,
+    index: Number,
+  };
+  task.description = taskToBeDone;
+  task.index = tasksList.length;
+  addOnLocalStorage(task);
+  addTaskToPage(task);
+};
 
-export function checkedBox(index) {
-  tasks[index].completed = true;
-  storeTasks();
-}
+const removeTask = (index) => {
+  const tasksElt = document.querySelectorAll('.task');
+  tasksList.splice(index, 1);
+  tasksElt[index].remove();
+  for (let i = tasksList.length - 1; i >= 0; i -= 1) {
+    tasksList[i].index = i;
+  }
+  localStorage.setItem('tasks: ', JSON.stringify(tasksList));
+};
 
-export function uncheckedBox(index) {
-  tasks[index].completed = false;
-  storeTasks();
-}
+const modifyTask = (taskToBeDone, index) => {
+  tasksList[index].description = taskToBeDone;
+  localStorage.setItem('tasks: ', JSON.stringify(tasksList));
+};
 
-export function clearTasks() {
-  const uncheckedTasks = tasks.filter((task) => task.completed === false);
-  uncheckedTasks.forEach((task, index) => {
-    task.index = index + 1;
+const highlightTask = (index) => {
+  const moveBtns = document.querySelectorAll('.fa.fa-ellipsis-v.dots-icon');
+  const deleteBtns = document.querySelectorAll('.fa.fa-trash.trash-icon');
+  const activeTasks = document.querySelectorAll('.task.active');
+  const tasksElt = document.querySelectorAll('.task');
+  activeTasks.forEach((activeTask) => {
+    activeTask.classList.remove('active');
   });
-  tasks = uncheckedTasks;
-  localStorage.setItem('tasks', JSON.stringify(tasks));
-}
+  moveBtns.forEach((btn, index) => {
+    btn.classList.remove('active');
+    deleteBtns[index].classList.remove('active');
+  });
+
+  tasksElt[index].classList.toggle('active');
+  moveBtns[index].classList.toggle('active');
+  deleteBtns[index].classList.toggle('active');
+};
+
+const clearCompletedTasks = () => {
+  const tasksElt = document.querySelectorAll('.task');
+  tasksList.forEach((task, index) => {
+    if (task.completed) {
+      tasksElt[index].remove();
+    }
+  });
+  tasksList = tasksList.filter((task) => task.completed === false);
+  for (let i = tasksList.length - 1; i >= 0; i -= 1) {
+    tasksList[i].index = i;
+  }
+  localStorage.setItem('tasks: ', JSON.stringify(tasksList));
+};
+export {
+  addTaskToArray,
+  loadTasksFromLS,
+  modifyTask,
+  highlightTask,
+  removeTask,
+  getTasksList,
+  clearCompletedTasks,
+};

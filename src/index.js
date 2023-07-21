@@ -1,72 +1,73 @@
 import './index.css';
 import {
-  addTask, removeTask, editTask, checkTasks, checkedBox, uncheckedBox, clearTasks,
+  addTaskToArray, highlightTask, loadTasksFromLS, modifyTask, removeTask, clearCompletedTasks,
 } from './modules/tasks.js';
+import updateTaskStatus from './modules/statusUpdates.js';
 
-const lists = document.querySelector('.lists');
-const addBtn = document.querySelector('#add-btn');
-const resetBtn = document.querySelector('.reset-btn');
+const onPageLoad = () => {
+  loadTasksFromLS();
+};
+window.onload = onPageLoad();
 
-checkTasks();
-
-addBtn.addEventListener('click', () => {
-  const description = document.getElementById('add-input').value;
-  addTask(description);
-  lists.insertAdjacentHTML(
-    'beforeend',
-    `<li class="task-item" contentEditable = "false"><input type="checkbox">${description}<i id="task-btn" class="fa-solid fa-ellipsis-vertical"></i></li>`,
-  );
-  document.getElementById('add-input').value = '';
-});
-
-document.body.addEventListener('click', (e) => {
-  if (e.target.classList.contains('fa-trash')) {
-    const lis = document.querySelectorAll('.task-item');
-    let index = 0;
-    for (let i = 0; i < lis.length; i += 1) {
-      if (lis[i].textContent === e.target.parentElement.textContent) {
-        index = i;
-      }
+const addTaskInput = document.querySelector('.task-adder-input');
+const addTaskBtn = document.querySelector('.add-task-btn');
+const clearAllBtn = document.querySelector('.clear-all-btn');
+addTaskInput.addEventListener('keyup', (event) => {
+  if (event.key === 'Enter') {
+    const taskValue = addTaskInput.value.trim();
+    if (taskValue !== '') {
+      addTaskToArray(taskValue);
+      addTaskInput.value = '';
     }
-    e.target.parentElement.remove();
-    removeTask(index);
   }
-
-  if (e.target.classList.contains('fa-ellipsis-vertical')) {
-    e.target.parentElement.contentEditable = 'true';
-    e.target.classList.remove('fa-ellipsis-vertical');
-    e.target.classList.add('fa-trash');
-
-    document.querySelectorAll('.task-item').forEach((task) => {
-      const index = [...task.parentElement.children].indexOf(task) - 1;
-
-      task.addEventListener('input', (e) => {
-        const description = e.target.textContent;
-        editTask(index, description);
-      });
-    });
+});
+addTaskBtn.addEventListener('click', () => {
+  const taskValue = addTaskInput.value.trim();
+  if (taskValue !== '') {
+    addTaskToArray(taskValue);
+    addTaskInput.value = '';
   }
-  document.querySelectorAll('.task-item').forEach((task) => {
-    const index = [...task.parentElement.children].indexOf(task) - 1;
-    task.addEventListener('change', () => {
-      const myCheck = task.firstElementChild;
-
-      if (myCheck.checked) {
-        checkedBox(index);
-      } else {
-        uncheckedBox(index);
+});
+document.addEventListener('click', (e) => {
+  if (!(e.target.matches('.task-value') || e.target.matches('.trash-icon'))) {
+    return;
+  }
+  if (e.target.matches('.task-value')) {
+    const tasks = document.querySelectorAll('.task-value');
+    tasks.forEach((task, index) => {
+      if (e.target === task) {
+        highlightTask(index);
       }
     });
-  });
+  } else {
+    const deleteBtn = document.querySelectorAll('.trash-icon');
+    deleteBtn.forEach((btn, index) => {
+      if (e.target === btn) {
+        removeTask(index);
+      }
+    });
+  }
 });
-
-resetBtn.addEventListener('click', () => {
-  document.querySelectorAll('.task-item').forEach((task) => {
-    const myCheck = task.firstElementChild;
-
-    if (myCheck.checked) {
-      task.remove();
-    }
-  });
-  clearTasks();
+document.addEventListener('change', (e) => {
+  if (!(e.target.matches('.task-value') || e.target.matches('input[type=checkbox]'))) {
+    return;
+  }
+  if (e.target.matches('.task-value')) {
+    const tasks = document.querySelectorAll('.task-value');
+    tasks.forEach((task, index) => {
+      if (e.target === task) {
+        modifyTask(task.value, index);
+      }
+    });
+  } else {
+    const checkBoxes = document.querySelectorAll('input[type=checkbox]');
+    checkBoxes.forEach((checkBox, index) => {
+      if (e.target === checkBox) {
+        updateTaskStatus(index);
+      }
+    });
+  }
+});
+clearAllBtn.addEventListener('click', () => {
+  clearCompletedTasks();
 });

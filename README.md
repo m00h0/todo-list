@@ -102,6 +102,10 @@ npm install --save-dev stylelint@13.x stylelint-scss@3.x stylelint-config-standa
 
 - GitHub: [@githubhandle](https://github.com/newtonah0)
 
+👤 **Fatuma**
+
+- GitHub: [@githubhandle](https://github.com/fatmahussein)
+
 ## 🔭 Future Features <a name="future-features"></a>
 
 - [ ] **[Made Mobile project]**

@@ -44,7 +44,7 @@ global.localStorage = new LocalStorageMock();
 describe('check for add-delete operations', () => {
   test('properly remove task items', () => {
     document.body.innerHTML = `<div class="tasks-container">
-    </div>`;
+  </div>`;
     addTaskToArray('task-a');
     addTaskToArray('task-b');
     addTaskToArray('task-c');
@@ -90,7 +90,7 @@ describe('check for add-delete operations', () => {
       index: 0,
     };
     document.body.innerHTML = `<div class="tasks-container">
-      </div>`;
+    </div>`;
     addTaskToPage(task);
     const tasksContainerElt = document.querySelectorAll('.task');
     expect(tasksContainerElt).toHaveLength(1);
@@ -111,19 +111,19 @@ describe('check for add-delete operations', () => {
   });
   test('highlight the proper task when clicked', () => {
     document.body.innerHTML = `<div class="tasks-container">
-      <div class="task">
-        <div class="task-content">
-          <input type="checkbox"><input class="task-value" type="text">
-        </div>
-          <i class="fa fa-trash trash-icon" aria-hidden="true"></i><i class="fa fa-ellipsis-v dots-icon" aria-hidden="true"></i>
+    <div class="task">
+      <div class="task-content">
+        <input type="checkbox"><input class="task-value" type="text">
       </div>
-      <div class="task">
-        <div class="task-content">
-          <input type="checkbox"><input class="task-value" type="text">
-        </div>
         <i class="fa fa-trash trash-icon" aria-hidden="true"></i><i class="fa fa-ellipsis-v dots-icon" aria-hidden="true"></i>
+    </div>
+    <div class="task">
+      <div class="task-content">
+        <input type="checkbox"><input class="task-value" type="text">
       </div>
-    </div>`;
+      <i class="fa fa-trash trash-icon" aria-hidden="true"></i><i class="fa fa-ellipsis-v dots-icon" aria-hidden="true"></i>
+    </div>
+  </div>`;
     const indexOfHighlightedItem = 1;
     highlightTask(indexOfHighlightedItem);
     const tasksElt = document.querySelectorAll('.task')[indexOfHighlightedItem];
@@ -155,7 +155,7 @@ describe('check for add-delete operations', () => {
   });
   test('clear all checked boxes', () => {
     document.body.innerHTML = `<div class="tasks-container">
-    </div>`;
+  </div>`;
     addTaskToArray('task-a');
     addTaskToArray('task-b');
     addTaskToArray('task-c');

@@ -144,9 +144,11 @@ describe('check for add-delete operations', () => {
     addTaskToArray('task-2');
     addTaskToArray('task-3');
     const indexOfFinishedTask = 1;
+
     updateTaskStatus(indexOfFinishedTask);
     let tasksList = getTasksList();
     expect(tasksList[indexOfFinishedTask].completed).toBe(true);
+
     updateTaskStatus(indexOfFinishedTask);
     tasksList = getTasksList();
     expect(tasksList[indexOfFinishedTask].completed).toBe(false);

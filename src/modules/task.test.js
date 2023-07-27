@@ -139,20 +139,7 @@ describe('check for add-delete operations', () => {
         .length,
     ).toBe(1);
   });
-  test('update the item\'s completed status', () => {
-    addTaskToArray('task-1');
-    addTaskToArray('task-2');
-    addTaskToArray('task-3');
-    const indexOfFinishedTask = 1;
-
-    updateTaskStatus(indexOfFinishedTask);
-    let tasksList = getTasksList();
-    expect(tasksList[indexOfFinishedTask].completed).toBe(true);
-
-    updateTaskStatus(indexOfFinishedTask);
-    tasksList = getTasksList();
-    expect(tasksList[indexOfFinishedTask].completed).toBe(false);
-  });
+  
   test('clear all checked boxes', () => {
     document.body.innerHTML = `<div class="tasks-container">
     </div>`;

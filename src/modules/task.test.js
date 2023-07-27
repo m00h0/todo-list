@@ -109,4 +109,60 @@ describe('check for add-delete operations', () => {
     const tasksList = getTasksList();
     expect(tasksList[0].description).toBe(modifiedTask);
   });
+  test('highlight the proper task when clicked', () => {
+    document.body.innerHTML = `<div class="tasks-container">
+    <div class="task">
+      <div class="task-content">
+        <input type="checkbox"><input class="task-value" type="text">
+      </div>
+        <i class="fa fa-trash trash-icon" aria-hidden="true"></i><i class="fa fa-ellipsis-v dots-icon" aria-hidden="true"></i>
+    </div>
+    <div class="task">
+      <div class="task-content">
+        <input type="checkbox"><input class="task-value" type="text">
+      </div>
+      <i class="fa fa-trash trash-icon" aria-hidden="true"></i><i class="fa fa-ellipsis-v dots-icon" aria-hidden="true"></i>
+    </div>
+  </div>`;
+    const indexOfHighlightedItem = 1;
+    highlightTask(indexOfHighlightedItem);
+    const tasksElt = document.querySelectorAll('.task')[indexOfHighlightedItem];
+    const tasksContainerElt = document.querySelector('.tasks-container');
+    expect(tasksContainerElt.getElementsByClassName('task active').length).toBe(
+      1,
+    );
+    expect(
+      tasksElt.getElementsByClassName('fa fa-trash trash-icon active').length,
+    ).toBe(1);
+    expect(
+      tasksElt.getElementsByClassName('fa fa-ellipsis-v dots-icon active')
+        .length,
+    ).toBe(1);
+  });
+  test('update the item\'s completed status', () => {
+    addTaskToArray('task-1');
+    addTaskToArray('task-2');
+    addTaskToArray('task-3');
+    const indexOfFinishedTask = 1;
+    updateTaskStatus(indexOfFinishedTask);
+    let tasksList = getTasksList();
+    expect(tasksList[indexOfFinishedTask].completed).toBe(true);
+    updateTaskStatus(indexOfFinishedTask);
+    tasksList = getTasksList();
+    expect(tasksList[indexOfFinishedTask].completed).toBe(false);
+  });
+  test('clear all checked boxes', () => {
+    document.body.innerHTML = `<div class="tasks-container">
+  </div>`;
+    addTaskToArray('task-a');
+    addTaskToArray('task-b');
+    addTaskToArray('task-c');
+    const tasksList = getTasksList();
+    tasksList[0].completed = true;
+    tasksList[1].completed = true;
+    setTasksList(tasksList);
+    clearCompletedTasks();
+    const tasksElt = document.querySelectorAll('.task');
+    expect(tasksElt).toHaveLength(1);
+  });
 });

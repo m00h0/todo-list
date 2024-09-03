@@ -27,7 +27,7 @@
 - [🙏 Acknowledgements](#acknowledgements)
 - [📝 License](#license)
 
-# 📖 [Todo-list] <a name="To_DO List"></a>
+# 📖 [Todo-list] <a name="about-project"></a>
 
 
 

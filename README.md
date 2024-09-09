@@ -75,7 +75,7 @@ Install this project with:
 
 Node.js.
 
-### Usage
+### Usage    <a name="usage"></a>
 
 To run the project, execute the following command: 
 

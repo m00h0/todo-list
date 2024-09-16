@@ -1,10 +1,10 @@
-## Copyright 2021, [AHMED&BIANCA]
+## Copyright 2021, [AHMED]
 
 ###### Please delete this line and the next one
-###### AHMED&BIANCA can be a webpage/website, a web app, a software and so on
+###### AHMED can be a webpage/website, a web app, a software and so on
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this [AHMED&BIANCA] and associated documentation files, to deal in the [AHMED&BIANCA] without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the [AHMED&BIANCA], and to permit persons to whom the [AHMED&BIANCA] is furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this [AHMED] and associated documentation files, to deal in the [AHMED] without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the [AHMED], and to permit persons to whom the [AHMED] is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the [AHMED&BIANCA].
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the [AHMED].
 
-THE [AHMED&BIANCA] IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE [AHMED&BIANCA] OR THE USE OR OTHER DEALINGS IN THE [AHMED&BIANCA].
+THE [AHMED] IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE [AHMED] OR THE USE OR OTHER DEALINGS IN THE [AHMED].
